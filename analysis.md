@@ -90,7 +90,7 @@ https://proposal-router.claude-ai-b27.workers.dev/proposal-formfactory-backend-a
 ### 6.4 클라이언트 사전 검증 질문 답변
 
 **Q1. 과업지시서 확인 + Vanilla JS FE 로직 100% 보존하며 fetch() REST API 바인딩 경험?**
-네, 과업지시서의 DB 스키마, API 매핑 명세, S3 연동 방식, 코어 보안 로직을 모두 확인했습니다. 기존 화면 단 로직(UI/UX)을 일절 수정하지 않고, 프론트엔드의 fetch() 호출 지점에 1:1로 대응하는 REST API를 설계·연동한 경험이 있습니다. 전자결재 SaaS 등에서 완성된 클라이언트 코드의 통신 규약에 백엔드를 정확히 맞추는 작업을 다수 수행했으며, React/Vue 등 프레임워크 전환 없이 제공된 Vanilla JS 소스를 그대로 보존하는 방식으로 진행합니다.
+네, 20페이지 과업지시서를 완독했습니다. Orders/Pricing 등 6종 테이블 컬럼 매핑, 25개 이상의 API 바인딩 명세, S3 4단계 다이렉트 업로드, AS-IS의 btoa/Base64 평문 암호화 인터셉터, 그리고 §8·§9의 7대 방어 로직까지 모두 확인했습니다. 기존 화면 단 로직(3단계 마법사·딥서치·노무계산기·관리자 10탭)을 일절 수정하지 않고, fetch() 호출 지점에 1:1 대응하는 REST API를 설계·연동한 경험이 있습니다. 무통장 입금 kakao-modal과 shakeError 통제 순서 등 기존 JS 원형을 100% 유지하며, React/Vue 전환 없이 제공된 Vanilla JS 소스를 그대로 보존합니다. 본 과업 최우선 평가지표인 "프론트엔드 파손 제로(콘솔 에러 0건)"를 검수 기준으로 삼겠습니다.
 
 **Q2. S3 Presigned URL 다이렉트 업로드 + UUID v4 파일명 난수화 구현 가능?**
 네, 가능합니다. 서버를 경유하지 않고 클라이언트가 S3로 직접 업로드하는 Presigned URL 다이렉트 업로드 아키텍처를 운영 수준으로 구현한 경험이 있습니다. 1회 최대 2GB 대용량 파일은 멀티파트 업로드로 안정 처리하며, 업로드 객체 키는 UUID v4로 난수화하여 Key Collision과 추측 접근을 방어합니다. 발급되는 Presigned URL에는 짧은 만료 시간과 콘텐츠 타입/크기 제약을 적용해 오남용을 차단합니다.
@@ -107,7 +107,7 @@ https://proposal-router.claude-ai-b27.workers.dev/proposal-formfactory-backend-a
 ▶ 위시켓 포트폴리오: https://www.wishket.com/partners/p/blueverse1/
 
 [프로젝트 분석] 순수 백엔드(API·DB·클라우드) 구축. Vanilla JS FE 100% 보존 + LocalStorage→REST API 1:1 대체. FE 공수 0원, PG 제외(무통장 유지).
-[핵심 과업] RDBMS 스키마·ERD / REST API 서버 / S3 Presigned URL 업로드(2GB)+UUID v4 / 관리자 대시보드 API+인증 / 비즈뿌리오 알림톡·SMS / 3대 보안 로직.
+[핵심 과업] 6종 RDBMS 스키마·ERD / 25+ REST API(라이브싱크·트래커 마스킹 포함) / S3 4단계 업로드(2GB)+UUID / 관리자 대시보드 트리·CRUD·draft·Bulk·CMS·인증 / 비즈뿌리오 알림톡·SMS(Fallback) / 7대 방어 로직.
 [일정 30일] P1 분석·DB설계(D1-6) / P2 핵심 API(D7-18) / P3 S3·관리자·연동·보안(D19-26) / P4 통합 QA·배포(D27-30).
 [산출물] 백엔드 소스 일체, ERD, REST API 명세서(Swagger/Postman), 배포 가이드.
 [협의] 프레임워크 확정(Node.js/NestJS 우선, Spring Boot/Django 협의), AWS·비즈뿌리오 정보 공유, 월 단위 유지보수 범위.
