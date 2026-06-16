@@ -34,20 +34,27 @@ job:
 
 ## 2. URL/이미지 분석
 
-- 첨부 PDF(과업지시서 V10, 1.84MB)는 파일로 전달되지 않아 직접 분석 불가.
-- 이전 공고 URL(155914)은 위시켓 로그인이 필요해 접근 불가.
-- 공고 본문에 RFP 핵심(DB 스키마, API 매핑, S3 방식, 3대 보안)이 상세 서술되어 있어 본문 기반으로 진행.
-- **참고 URL/이미지 직접 분석 없음** — 텍스트 명세 기반 제안.
+- **첨부 PDF(과업지시서 V10, 20p) 전문 분석 완료** — pdfjs-dist(Node)로 텍스트 추출(poppler 미설치로 이미지 렌더 불가, py 부재). 추출 결과 `C:/Users/user/AppData/Local/Temp/pdfx/_rfp.txt`.
+- 이전 공고 URL(155914)은 위시켓 로그인 필요로 접근 불가.
+- **RFP에서 확인된 공고 본문 외 추가 명세 (제안서에 반영)**:
+  - 도메인 jyformfactory.com(구매완료), 마스터본 = 3단계 마법사·딥서치·노무계산기·관리자 10탭
+  - AS-IS: btoa(encodeURIComponent()) LocalStorage 평문 암호화 → TO-BE: Base64 우회 순수 JSON 송수신(보안 HTTPS 대체)
+  - DB 6테이블 정밀 명세: Orders(uuid PK/status 1~5,-1/phone IDX/attachments JSON), Pricing(Team/Center/Items 3단 트리·customGuideObj·isClosed), Reviews/Cases(PK=timestamp BigInt), Marquee, Config(ff_set_*), Popup(신설)
+  - API 25+: config/popup/pricing(80트리)/marquee/reviews/cases, SSE·폴링(storage 이벤트 대체, /api/orders/stats), POST orders(kakao-modal·shakeError 보존), track(이름 마스킹 홍*동·30일 블라인드), S3 4단계 업로드+files sync/download-url/hardDelete, admin login/password, admin/orders(연-월-일 트리·경량 메타), 기간필터, status CRUD/restore/hardDelete, draft get/put, pricing PUT /bulk(Replace), CMS(timestamp 키), SMS 장부 soft/restore/hard
+  - 알림톡: 비즈뿌리오/알리고, 변수 치환({이름}{금액}{일정}), 트리거(제출/상태변경/수임료), **알림톡 실패 시 LMS/SMS Fallback**
+  - **방어 로직 7대** (§8 4대: Key Collision·Rate Limiting/과금폭탄(reCaptcha)·DB Transaction Lock·S3 고아파일 Cron GC + §9 3대: UUID v4 브루트포스·WebShell MIME 차단·50MB Lazy Load) + §10 인프라(HTTPS·SQLi·CORS) — 공고에는 "3대"만 언급되었으나 RFP는 실제 7대
+  - **최우선 평가지표: 프론트엔드 파손 제로(콘솔 에러 0건)**, 잔금 요건: GitHub 권한 이관·ERD·Swagger/Postman
+- **영향**: 실제 범위가 공고 본문보다 큼(1인 ~37일 산정). 다수 인력 병행으로 30일 유지 + 공수 21→26.5 M/D로 상향, 보안 "3대→7대" 정정 반영.
 
 ## 3. 실현 가능성 분석 (내부용)
 
 - **프로젝트 유형**: 순수 백엔드 (API + DB + S3 + 인증 + 외부 API + 보안) → "결제/인증/외부 API 연동" 유형, 보안 리뷰 버퍼 +15%
 - **FE/디자인/퍼블리싱**: 0 M/D (명시 제약)
-- **기본 공수 (AI 보조 없이)**: 36 M/D
-  - DB 스키마·ERD 4 / REST API 11 / S3 업로드 4 / 관리자+인증 5 / 알림 연동 3 / 3대 보안 4 / 명세·QA·배포 5
-- **AI 반영 공수 (~50% 절감)**: 18 M/D → +15% 버퍼 ≈ 20.7 M/D
-- **1인 달력 환산**: 20.7 × (7/5) ≈ 29일 → 클라이언트 예상 30일 내 충분히 가능
-- **판정: 강력 가능** — 다수 인력 투입 시 설계·개발 병행으로 일정 여유, 1순위 "산출물 완성도"에 자원 집중
+- **기본 공수 (AI 보조 없이, RFP 완독 후 상향)**: ~46 M/D
+  - DB 6테이블·ERD / 공개조회·라이브동기화 / 폼·트래커 / S3 4단계·파일관리·GC / 관리자 인증·트리·필터 / 관리자 CRUD·에디터·Bulk·CMS·SMS장부 / 알림톡 치환·트리거·Fallback / 7대 방어+인프라 / QA(파손제로)·문서·배포
+- **AI 반영 공수 (~50% 절감)**: ~23 M/D → +15% 버퍼 ≈ 26.5 M/D
+- **1인 달력 환산**: 26.5 × (7/5) ≈ 37일 (> 30일)
+- **판정: 가능 (다수 인력 필수)** — 2인 병행 시 calendar ~18.5일 → 30일 충분. 1순위 "산출물 완성도"에 자원 집중. 공개 공수계산서는 26.5 M/D로 표기, 30일은 다수 인력 병행으로 충족(1인/AI 언급 금지).
 
 ## 4. 포트폴리오 매칭
 

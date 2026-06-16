@@ -169,7 +169,7 @@
           <div class="rounded-2xl border border-slate-200/70 bg-white/95 p-6 shadow-soft backdrop-blur md:p-8">
             <p class="mb-2 text-xs font-semibold tracking-[0.2em] text-sky-700/80">프로젝트 제안서</p>
             <h1 class="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">비대면 스마트 서면 설계 웹 시스템 백엔드(API/DB) 및 클라우드(S3) 구축</h1>
-            <p class="mt-3 max-w-3xl text-sm leading-7 text-slate-600 md:text-base">완성된 Vanilla JS 프론트엔드를 100% 보존하며 fetch() 기반 REST API로 1:1 바인딩하고, AWS S3 Presigned URL 다이렉트 업로드(최대 2GB)와 3대 코어 보안 로직을 안정적으로 구축합니다. 과업지시서(RFP) 명세를 그대로 구현하는 순수 백엔드 전문 제안입니다.</p>
+            <p class="mt-3 max-w-3xl text-sm leading-7 text-slate-600 md:text-base">완성된 마스터본 프론트엔드(index.html)를 100% 보존하며 localStorage 트랜잭션을 fetch() 기반 REST API로 1:1 치환합니다. 6종 RDBMS 테이블, 25+ API 엔드포인트, AWS S3 Presigned URL 다이렉트 업로드(최대 2GB), 7대 방어 로직을 과업지시서(20p RFP) 명세 그대로 구축하는 순수 백엔드 전문 제안입니다. (도메인: jyformfactory.com)</p>
             <div class="mt-4 flex flex-wrap items-center gap-2">
               <span class="inline-flex rounded-full border border-sky-200 bg-sky-100 px-2.5 py-1 text-sm font-semibold tracking-[0.12em] text-sky-700">4,250,000원 (VAT 별도)</span>
               <span class="inline-flex rounded-full border border-sky-200 bg-sky-100 px-2.5 py-1 text-sm font-semibold tracking-[0.12em] text-sky-700">30일</span>
@@ -221,16 +221,16 @@
               <p class="mt-1 text-xs text-slate-500">S3 Presigned 다이렉트 업로드</p>
             </div>
             <div class="rounded-2xl border border-slate-200/70 bg-white/90 p-4 text-center shadow-soft backdrop-blur">
-              <p class="text-2xl font-bold text-sky-700">3대</p>
-              <p class="mt-1 text-xs text-slate-500">코어 보안 로직 구현</p>
+              <p class="text-2xl font-bold text-sky-700">7대</p>
+              <p class="mt-1 text-xs text-slate-500">방어 로직 (RFP §8·§9)</p>
             </div>
             <div class="rounded-2xl border border-slate-200/70 bg-white/90 p-4 text-center shadow-soft backdrop-blur">
-              <p class="text-2xl font-bold text-sky-700">100%</p>
-              <p class="mt-1 text-xs text-slate-500">기존 FE 로직 보존 바인딩</p>
+              <p class="text-2xl font-bold text-sky-700">콘솔 0건</p>
+              <p class="mt-1 text-xs text-slate-500">프론트엔드 파손 제로 검증</p>
             </div>
             <div class="rounded-2xl border border-slate-200/70 bg-white/90 p-4 text-center shadow-soft backdrop-blur">
-              <p class="text-2xl font-bold text-sky-700">30일</p>
-              <p class="mt-1 text-xs text-slate-500">API·DB·인프라 일괄 구축</p>
+              <p class="text-2xl font-bold text-sky-700">25+</p>
+              <p class="mt-1 text-xs text-slate-500">REST API 엔드포인트</p>
             </div>
           </div>
 
@@ -257,22 +257,24 @@
                 <tr><td>핵심 기술</td><td>Node.js (NestJS) · MySQL · AWS (EC2/RDS/S3) · REST API</td></tr>
               </table>
 
-              <h2>핵심 요구사항 분석</h2>
+              <h2>핵심 요구사항 분석 (RFP 정밀 반영)</h2>
               <ul>
-                <li><strong>RDBMS 스키마 설계·영구 구축</strong> — 주문·단가표·설정 등 기존 LocalStorage 데이터 모델을 정규화하여 영속 저장소로 이관</li>
-                <li><strong>LocalStorage 트랜잭션 100% 대체 REST API</strong> — 기존 화면 단 로직(UI/UX)을 보존한 채 fetch() 호출 지점에 1:1 매핑되는 API 엔드포인트 설계</li>
-                <li><strong>S3 Presigned URL 다이렉트 업로드</strong> — 블랙박스 등 1회 최대 2GB 대용량 파일을 서버 경유 없이 클라이언트→S3 직접 전송</li>
-                <li><strong>관리자 마스터 대시보드 API + 인증(Auth)</strong> — 통계·제어 API 및 인증/인가 로직 구축</li>
-                <li><strong>비즈뿌리오 알림톡/SMS 자동 발송</strong> — 외부 API 연동 기반 이벤트 트리거 발송</li>
-                <li><strong>3대 코어 보안 로직</strong> — UUID v4 기반 브루트포스/Key Collision 방어, 웹쉘 업로드 차단, 페이로드 과부하 방지</li>
+                <li><strong>6종 RDBMS 테이블 설계·영구 구축</strong> — Orders(uuid PK·status 1~5/-1·phone IDX·attachments JSON), Pricing(Team/Center/Items 3단 트리·customGuideObj·isClosed), Reviews/Cases(PK=timestamp), Marquee, Config(ff_set_* Key-Value), Popup(신설). LocalStorage 의존도 0% 달성</li>
+                <li><strong>localStorage 트랜잭션 100% 대체 REST API (25+ 엔드포인트)</strong> — fetch() 호출 지점에 1:1 치환. 기존 Base64(btoa) 암호화 인터셉터를 우회해 순수 JSON 평문으로 송수신(보안은 HTTPS 대체)</li>
+                <li><strong>storage 이벤트 대체 라이브 동기화</strong> — 브라우저 storage 이벤트 의존을 SSE 또는 GET /api/orders/stats 폴링으로 대체하여 대시보드 강제 새로고침(Live Sync) 구현</li>
+                <li><strong>S3 Presigned URL 4단계 다이렉트 업로드</strong> — 발급→Multipart 직접 전송(2GB)→Key 반환→POST /api/orders 시퀀스. 관리자 파일 sync/download-url/Hard Delete 연동</li>
+                <li><strong>폼 제출·현황 트래커 보존 바인딩</strong> — POST /api/orders 200 OK 후 무통장 입금 kakao-modal 원형 호출 유지, shakeError 통제 순서 엄수. 트래커는 이름 가운데 글자 서버단 마스킹(홍*동) + 완료/취소 30일 경과 건 블라인드</li>
+                <li><strong>마스터 대시보드 통제</strong> — 인증(login/password), GET /api/admin/orders(연-월-일 3단 트리·경량 메타데이터), 기간 필터(전체/일·주·월·연간), 상태 CRUD·복구·Hard Delete, 스마트 에디터 draft(get/put), 단가표 PUT /bulk(Replace)</li>
+                <li><strong>비즈뿌리오/알리고 알림톡·SMS</strong> — 템플릿 변수({이름}{금액}{일정}) 치환, 제출·상태변경·수임료 트리거 자동 발송, 알림톡 실패 시 LMS/SMS Fallback, SMS 장부 soft/restore/hard delete</li>
+                <li><strong>7대 방어 로직</strong> — ①S3 Key Collision(UUID 강제주입) ②Rate Limiting/과금폭탄(IP·번호 일일 제한·reCaptcha) ③DB 동시성 Transaction Lock ④S3 고아파일 Cron GC 배치 ⑤UUID v4 브루트포스 타파 ⑥WebShell 차단(MIME 강제검증·Content-Disposition) ⑦50MB 페이로드 과부하 방지(Lazy Load) + HTTPS·SQL Injection·CORS 화이트리스트</li>
               </ul>
 
               <h2>제안 포인트</h2>
-              <p><strong>1) "프론트엔드 0원" 제약을 정확히 이해한 순수 백엔드 제안.</strong> 기획·디자인·퍼블리싱 공수를 일절 산정하지 않고, 제공된 Vanilla JS 소스의 fetch() 통신 규약에 맞춰 API 계약(요청/응답 스키마)을 설계합니다. React/Vue 전환 제안 없이 기존 화면 로직을 그대로 보존합니다.</p>
-              <p><strong>2) Presigned URL + UUID v4 난수화는 검증된 구현 패턴.</strong> 유사 프로젝트에서 S3 호환 스토리지의 Presigned URL 다이렉트 업로드와 파일명 난수화(Key Collision 방어)를 운영 수준으로 구현한 경험이 있어, 2GB 대용량 멀티파트 업로드까지 안정적으로 처리합니다.</p>
-              <p><strong>3) 3대 보안 로직은 기존에 구축해 본 영역.</strong> 브루트포스 방어, 업로드 파일 검증(웹쉘 차단), Rate Limiting/페이로드 크기 제한(과부하 방지)을 엔터프라이즈 결재 시스템에서 다계층 보안으로 구현한 경험을 그대로 적용합니다.</p>
-              <p><strong>4) 알림톡/SMS는 동일 제공사(Ppurio/비즈뿌리오) 연동 경험 보유.</strong> 발송 큐와 이벤트 트리거 기반 자동 발송 구조를 다수 프로젝트에서 운영해, 연동 리스크가 낮습니다.</p>
-              <p><strong>5) 산출물 완성도(1순위)에 집중.</strong> 다수 인력으로 단계를 병행하여 30일 일정을 유지하면서, ERD·Swagger/Postman 명세·배포 가이드까지 인수인계 가능한 형태로 완비합니다.</p>
+              <p><strong>1) 20페이지 RFP를 완독하고 설계에 반영했습니다.</strong> AS-IS의 btoa/Base64 평문 암호화 인터셉터, 3단계 마법사·딥서치·노무계산기·10탭 마스터 대시보드 구조, Orders/Pricing 컬럼 매핑까지 파악하여 기존 화면 로직을 단 1줄도 깨지 않는 바인딩 설계를 준비했습니다. 본 과업의 최우선 평가지표인 "프론트엔드 파손 제로(콘솔 에러 0건)"를 검수 기준으로 삼습니다.</p>
+              <p><strong>2) Presigned URL + UUID v4 난수화는 검증된 구현 패턴.</strong> 유사 프로젝트에서 S3 Presigned URL 다이렉트 업로드와 파일명 난수화(Key Collision 방어)를 운영 수준으로 구현했으며, 2GB 멀티파트 업로드와 MIME 강제검증·Content-Disposition을 통한 WebShell 차단까지 동일 방식으로 처리합니다.</p>
+              <p><strong>3) 7대 방어 로직 전체가 기존 구축 경험 영역.</strong> 브루트포스 방어, Rate Limiting, 업로드 검증은 물론 DB 동시성 Transaction Lock(단가표 Bulk Update 중 폼 제출 Dirty Read 방어), Cron 배치(고아 파일 GC)까지 핀테크·전자결재 백엔드에서 다계층으로 구현·운영한 경험을 그대로 적용합니다.</p>
+              <p><strong>4) 알림톡/SMS는 동일 제공사(Ppurio/비즈뿌리오) 연동 경험 보유.</strong> 템플릿 변수 치환, 이벤트 트리거 자동 발송, 그리고 알림톡 실패 시 LMS/SMS Fallback 우회 구조까지 운영해, 과금 폭탄 방어와 발송 안정성을 동시에 확보합니다.</p>
+              <p><strong>5) 산출물 완성도(1순위)에 집중.</strong> 다수 인력으로 설계·개발을 병행하여 30일 일정을 유지하면서, GitHub 권한 이관·정밀 ERD·Swagger/Postman API 명세까지 잔금 지급 요건을 모두 충족하는 형태로 납품합니다.</p>
 
               <h2>사용 기술 및 툴</h2>
               <h3>개발 기술</h3>
@@ -322,13 +324,13 @@
                   <tr><th>구분</th><th>항목</th><th>수량</th><th>금액</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>DB</td><td>RDBMS 스키마 설계·구축 + ERD (주문/단가표/설정)</td><td>1식</td><td>600,000원</td></tr>
-                  <tr><td>API</td><td>LocalStorage 대체 REST API 서버 개발 (fetch 1:1 바인딩)</td><td>1식</td><td>1,650,000원</td></tr>
-                  <tr><td>클라우드</td><td>S3 Presigned URL 다이렉트 업로드 아키텍처 (최대 2GB)</td><td>1식</td><td>500,000원</td></tr>
-                  <tr><td>관리자</td><td>마스터 대시보드 통계·제어 API + 인증(Auth)</td><td>1식</td><td>600,000원</td></tr>
-                  <tr><td>연동</td><td>비즈뿌리오 알림톡/SMS 자동 발송 트리거</td><td>1식</td><td>300,000원</td></tr>
-                  <tr><td>보안</td><td>3대 코어 보안 로직 (브루트포스·웹쉘·페이로드 방어)</td><td>1식</td><td>400,000원</td></tr>
-                  <tr><td>QA/배포</td><td>통합 테스트, API 명세서, AWS 배포 및 인수인계</td><td>1식</td><td>200,000원</td></tr>
+                  <tr><td>DB</td><td>6종 테이블 스키마 설계·구축 + 정밀 ERD (Orders/Pricing/Reviews/Cases/Marquee/Config/Popup)</td><td>1식</td><td>550,000원</td></tr>
+                  <tr><td>API</td><td>localStorage 대체 REST API 25+ 엔드포인트 (공개 조회·라이브 동기화·폼/트래커·관리자 CRUD·에디터·단가표 Bulk·CMS)</td><td>1식</td><td>1,900,000원</td></tr>
+                  <tr><td>클라우드</td><td>S3 Presigned URL 4단계 다이렉트 업로드(2GB) + 파일 sync/download/Hard Delete + Cron GC 배치</td><td>1식</td><td>600,000원</td></tr>
+                  <tr><td>관리자</td><td>인증(login/password) + 연-월-일 3단 트리·기간 필터 통계 API</td><td>1식</td><td>500,000원</td></tr>
+                  <tr><td>연동</td><td>비즈뿌리오/알리고 알림톡·SMS (변수 치환·트리거·LMS Fallback)</td><td>1식</td><td>300,000원</td></tr>
+                  <tr><td>보안</td><td>7대 방어 로직 (Key Collision·Rate Limit·Tx Lock·UUID v4·WebShell·50MB) + HTTPS/SQLi/CORS</td><td>1식</td><td>250,000원</td></tr>
+                  <tr><td>QA/배포</td><td>프론트엔드 파손 제로 검증, API 명세서, AWS 배포 및 GitHub 권한 이관</td><td>1식</td><td>150,000원</td></tr>
                 </tbody>
                 <tfoot>
                   <tr><th colspan="3">합계 (VAT 별도)</th><th>4,250,000원</th></tr>
@@ -336,7 +338,7 @@
               </table>
 
               <h2>산정 근거</h2>
-              <p>과업지시서에 정의된 6대 업무 범위를 작업 단위로 분해하여 기능별 공수(총 21 M/D)를 산출하고, 유사 프로젝트(전자결재 SaaS, 핀테크 플랫폼)에서 검증된 백엔드 구현 패턴을 재활용하여 효율적으로 산정했습니다. 프론트엔드·기획·디자인·퍼블리싱은 명시된 제약에 따라 공수 0원으로 반영했습니다.</p>
+              <p>20페이지 과업지시서에 정의된 DB 매핑 명세(6테이블), 핵심 API 바인딩 명세, 클라우드 파일 시스템, 마스터 대시보드 통제, 알림톡/SMS, 7대 방어 로직을 작업 단위로 분해하여 기능별 공수(총 26.5 M/D)를 산출했습니다. 유사 프로젝트(전자결재 SaaS, 핀테크 플랫폼)에서 검증된 백엔드 구현 패턴을 재활용하고 다수 인력으로 단계를 병행하여 30일 일정 내 효율적으로 완수합니다. 프론트엔드·기획·디자인·퍼블리싱은 RFP 3대 원칙에 따라 공수 0원으로 반영했습니다.</p>
 
               <h2>포함 사항</h2>
               <ul>
@@ -370,14 +372,16 @@
               <h2>공수 요약</h2>
               <table>
                 <tr><th>구분</th><th>공수 (M/D)</th><th>비율</th></tr>
-                <tr><td>DB 설계/구축</td><td>3 M/D</td><td>14%</td></tr>
-                <tr><td>REST API 서버 개발</td><td>8 M/D</td><td>38%</td></tr>
-                <tr><td>S3 Presigned 업로드</td><td>2.5 M/D</td><td>12%</td></tr>
-                <tr><td>관리자 대시보드 API + 인증</td><td>3 M/D</td><td>14%</td></tr>
-                <tr><td>알림톡/SMS 연동</td><td>1.5 M/D</td><td>7%</td></tr>
-                <tr><td>3대 보안 로직</td><td>2 M/D</td><td>10%</td></tr>
-                <tr><td>QA/문서/배포</td><td>1 M/D</td><td>5%</td></tr>
-                <tr><th>합계</th><th>21 M/D</th><th>100%</th></tr>
+                <tr><td>DB 설계/구축 (6테이블 + ERD)</td><td>3.5 M/D</td><td>13%</td></tr>
+                <tr><td>공개 조회 API + 라이브 동기화(SSE/폴링)</td><td>3.5 M/D</td><td>13%</td></tr>
+                <tr><td>폼 제출·현황 트래커 API</td><td>4 M/D</td><td>15%</td></tr>
+                <tr><td>S3 다이렉트 업로드 + 파일 관리·GC</td><td>3.5 M/D</td><td>13%</td></tr>
+                <tr><td>관리자 인증·대시보드 트리·필터</td><td>3.5 M/D</td><td>13%</td></tr>
+                <tr><td>관리자 CRUD·에디터·단가표 Bulk·CMS·SMS 장부</td><td>3.5 M/D</td><td>13%</td></tr>
+                <tr><td>알림톡/SMS 연동 (치환·트리거·Fallback)</td><td>1.5 M/D</td><td>6%</td></tr>
+                <tr><td>7대 방어 로직 + 인프라 보안</td><td>2.5 M/D</td><td>9%</td></tr>
+                <tr><td>QA(파손 제로)·문서·배포</td><td>1 M/D</td><td>4%</td></tr>
+                <tr><th>합계</th><th>26.5 M/D</th><th>100%</th></tr>
               </table>
 
               <h2>기능별 상세 공수</h2>
@@ -386,19 +390,22 @@
                   <tr><th>기능</th><th>세부 작업</th><th>담당</th><th>공수 (M/D)</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td rowspan="2">DB 설계</td><td>주문/단가표/설정 스키마 정규화 및 마이그레이션</td><td>백엔드</td><td>2</td></tr>
-                  <tr><td>ERD 작성 및 인덱스/제약조건 설계</td><td>백엔드</td><td>1</td></tr>
-                  <tr><td rowspan="3">REST API</td><td>LocalStorage 트랜잭션 분석 및 fetch 호출 지점 매핑</td><td>백엔드</td><td>2</td></tr>
-                  <tr><td>주문/단가/설정 CRUD 및 비즈니스 로직 API</td><td>백엔드</td><td>4</td></tr>
-                  <tr><td>기존 FE 1:1 바인딩 및 응답 스키마 정합성 검증</td><td>백엔드</td><td>2</td></tr>
-                  <tr><td rowspan="2">S3 업로드</td><td>Presigned URL 발급 API + UUID v4 파일명 난수화</td><td>백엔드</td><td>1.5</td></tr>
-                  <tr><td>2GB 대용량 멀티파트 업로드 및 메타데이터 처리</td><td>백엔드</td><td>1</td></tr>
-                  <tr><td rowspan="2">관리자</td><td>마스터 대시보드 통계/제어 API (경량 트리 메타데이터)</td><td>백엔드</td><td>2</td></tr>
-                  <tr><td>인증/인가(Auth) 및 권한 분리</td><td>백엔드</td><td>1</td></tr>
-                  <tr><td>알림 연동</td><td>비즈뿌리오 알림톡/SMS 트리거 및 발송 큐</td><td>백엔드</td><td>1.5</td></tr>
-                  <tr><td rowspan="2">보안</td><td>UUID v4 브루트포스 방어 + 웹쉘 업로드 차단</td><td>백엔드</td><td>1.2</td></tr>
-                  <tr><td>페이로드 과부하 방지 (50MB Rate Limit/크기 제한)</td><td>백엔드</td><td>0.8</td></tr>
-                  <tr><td>QA/배포</td><td>통합 테스트, Swagger/Postman 명세, AWS 배포</td><td>백엔드</td><td>1</td></tr>
+                  <tr><td rowspan="2">DB 설계</td><td>Orders/Pricing/Reviews/Cases/Marquee/Config/Popup 6종 스키마 (PK·IDX·JSON·timestamp 키)</td><td>백엔드</td><td>2.5</td></tr>
+                  <tr><td>정밀 ERD 작성 및 마이그레이션</td><td>백엔드</td><td>1</td></tr>
+                  <tr><td rowspan="2">공개 조회 API</td><td>GET config(15종)/popup/pricing(80 트리)/marquee/reviews/cases 렌더링 API</td><td>백엔드</td><td>2</td></tr>
+                  <tr><td>storage 이벤트 대체 SSE/폴링(/api/orders/stats) 라이브 동기화</td><td>백엔드</td><td>1.5</td></tr>
+                  <tr><td rowspan="2">폼·트래커</td><td>POST /api/orders + kakao-modal/shakeError 원형 보존 1:1 바인딩</td><td>백엔드</td><td>2.5</td></tr>
+                  <tr><td>현황 트래커(track) + 이름 마스킹(홍*동) + 30일 경과 블라인드</td><td>백엔드</td><td>1.5</td></tr>
+                  <tr><td rowspan="2">S3 업로드</td><td>Presigned URL 발급 + UUID 강제주입 + 2GB Multipart 4단계 시퀀스</td><td>백엔드</td><td>2</td></tr>
+                  <tr><td>파일 sync/download-url/Hard Delete + 고아파일 Cron GC 배치</td><td>백엔드</td><td>1.5</td></tr>
+                  <tr><td rowspan="2">관리자 통제</td><td>인증(login/password) + GET /admin/orders 연-월-일 트리 경량 메타데이터</td><td>백엔드</td><td>2</td></tr>
+                  <tr><td>기간 필터(전체/일·주·월·연간) 통계 재호출</td><td>백엔드</td><td>1.5</td></tr>
+                  <tr><td rowspan="2">관리자 CRUD</td><td>상태 변경/복구/Hard Delete + 스마트 에디터 draft(get/put) + 단가표 PUT /bulk(Replace)</td><td>백엔드</td><td>2</td></tr>
+                  <tr><td>CMS(marquee/review/case timestamp 키) + Config/Popup + SMS 장부 soft/restore/hard</td><td>백엔드</td><td>1.5</td></tr>
+                  <tr><td>알림 연동</td><td>비즈뿌리오/알리고 변수 치환·트리거 + 알림톡 실패 LMS Fallback</td><td>백엔드</td><td>1.5</td></tr>
+                  <tr><td rowspan="2">보안</td><td>Key Collision·UUID v4 브루트포스·WebShell(MIME)·50MB Lazy Load</td><td>백엔드</td><td>1.5</td></tr>
+                  <tr><td>Rate Limiting(reCaptcha)·DB Transaction Lock·HTTPS/SQLi/CORS</td><td>백엔드</td><td>1</td></tr>
+                  <tr><td>QA/배포</td><td>프론트엔드 파손 제로 검증, Swagger/Postman 명세, AWS 배포·권한 이관</td><td>백엔드</td><td>1</td></tr>
                 </tbody>
               </table>
 
@@ -407,8 +414,8 @@
                 <li>1 M/D = 8시간 기준 (1인 1일 작업량)</li>
                 <li>주 5일 근무 기준</li>
                 <li>버퍼 10~15% 포함 (보안 리뷰 시간 반영)</li>
-                <li>프론트엔드·기획·디자인·퍼블리싱 = 0 M/D (과업 제외)</li>
-                <li>유사 프로젝트 수행 경험 기반 효율적 개발</li>
+                <li>프론트엔드·기획·디자인·퍼블리싱 = 0 M/D (RFP 3대 원칙)</li>
+                <li>다수 인력 병행 투입 + 유사 프로젝트 수행 경험 기반 효율적 개발로 30일 일정 충족</li>
               </ul>
             </article>
           </div>
@@ -422,7 +429,7 @@
               <blockquote>과업지시서(RFP) 기반으로 백엔드 기능 범위를 정의하고 구현 기준을 명확히 합니다.</blockquote>
 
               <h2>1. 프로젝트 배경 및 목적</h2>
-              <p>행정사사무소용 스마트 서면 설계 플랫폼 FORMFACTORY는 프론트엔드(HTML/CSS/Vanilla JS)가 100% 완성되어 있으나, 데이터가 브라우저 LocalStorage에 저장되어 영속성·다중 사용자·대용량 파일 처리에 한계가 있습니다. 본 과업의 목적은 LocalStorage 트랜잭션을 완전히 대체하는 REST API 서버와 RDBMS, 그리고 대용량 파일을 위한 S3 클라우드 아키텍처를 신규 구축하여, 기존 화면을 변경 없이 그대로 운영 가능한 정식 서비스로 전환하는 것입니다.</p>
+              <p>행정사사무소용 스마트 서면 설계 플랫폼 FORMFACTORY(jyformfactory.com)는 프론트엔드(단일 HTML SPA · Vanilla JS · Tailwind)가 마스터본 수준으로 100% 완성되어 있으나, 모든 비즈니스 로직(위임 신청, 단가표, 관리자 10탭)이 브라우저 LocalStorage 기반으로 구동되어 영속성·다중 사용자·대용량 파일 처리에 한계가 있습니다. 또한 현재는 <code>btoa(encodeURIComponent())</code> 기반 LocalStorage 평문 암호화 인터셉터가 적용되어 있습니다. 본 과업의 목적은 ① LocalStorage 의존도 0% 달성 및 클라우드 RDBMS 영구 구축, ② 기존 Base64 암호화 로직을 우회한 순수 JSON 평문 송수신(보안은 HTTPS로 대체), ③ S3 Presigned URL 다이렉트 업로드 아키텍처 도입으로, 기존 화면을 단 1줄도 변경하지 않고 정식 서비스로 전환하는 것입니다.</p>
 
               <h2>2. 사용자 정의</h2>
               <table>
@@ -437,39 +444,45 @@
               </table>
 
               <h2>3. 기능 요구사항</h2>
-              <h3>3.1 데이터베이스 (RDBMS)</h3>
+              <h3>3.1 데이터베이스 (6종 RDBMS 테이블)</h3>
               <ul>
-                <li><strong>[필수]</strong> 주문·단가표·설정 등 핵심 도메인 스키마 설계 및 영구 구축</li>
-                <li><strong>[필수]</strong> LocalStorage 데이터 구조를 정규화하여 무손실 이관 가능하도록 모델링</li>
-                <li><strong>[필수]</strong> ERD 산출물 제공</li>
+                <li><strong>[필수]</strong> <strong>Orders</strong> — uuid(PK, JR-YYMMDD-XXXX 프론트 생성값 보존), status TINYINT(1:입금대기~5:발송완료/-1:취소, IDX), phone(IDX), cash_receipt, fee/timerType, attachments(JSON, S3 Key 배열), company/bizNo/position, name/birth/gender, service/description(TEXT), deliveryMethod/Address</li>
+                <li><strong>[필수]</strong> <strong>Pricing</strong> — Team/Center/Items 3단 트리(약 80개), customGuideObj(JSON, 다중 탭 가이드 통째 저장), isClosed(BOOLEAN, 금일 마감)</li>
+                <li><strong>[필수]</strong> <strong>Reviews/Cases</strong> — PK=timestamp(BigInt, 프론트 삭제/수정 함수가 timestamp 키 사용), status(pending/approved)</li>
+                <li><strong>[필수]</strong> <strong>Marquee</strong>(배지·텍스트), <strong>Config</strong>(ff_set_* Key-Value 전역 환경변수), <strong>Popup</strong>(신설, enable/title/mediaType/mediaUrl)</li>
               </ul>
-              <h3>3.2 REST API 서버</h3>
+              <h3>3.2 REST API 서버 (25+ 엔드포인트)</h3>
               <ul>
-                <li><strong>[필수]</strong> 기존 LocalStorage 트랜잭션을 100% 대체하는 API 엔드포인트</li>
-                <li><strong>[필수]</strong> 기존 Vanilla JS의 fetch() 호출과 1:1 바인딩 (요청/응답 스키마 정합)</li>
-                <li><strong>[필수]</strong> 기존 화면 단 로직(UI/UX) 100% 보존 — 프레임워크 전환 없음</li>
+                <li><strong>[필수]</strong> 초기화: GET /api/config(15종 설정)·/api/popup·/api/pricing(80 트리)</li>
+                <li><strong>[필수]</strong> 조회: GET /api/marquee·/api/reviews?status=approved·/api/cases(36+)</li>
+                <li><strong>[필수]</strong> 라이브 동기화: 브라우저 storage 이벤트 대체 — SSE 또는 GET /api/orders/stats 폴링으로 refreshUI() 트리거</li>
+                <li><strong>[필수]</strong> 제출: POST /api/orders — DB INSERT 후 200 OK, 무통장 입금 kakao-modal 원형 호출 유지, shakeError 통제 순서 엄수</li>
+                <li><strong>[필수]</strong> 트래커: GET /api/orders/track?phone= — 이름 가운데 글자 서버단 마스킹(홍*동), 완료/취소 후 30일 경과 건 응답 자동 제외</li>
               </ul>
-              <h3>3.3 S3 대용량 파일 업로드</h3>
+              <h3>3.3 S3 대용량 파일 업로드 (4단계 시퀀스)</h3>
               <ul>
-                <li><strong>[필수]</strong> Presigned URL 방식 클라이언트→S3 다이렉트 업로드 (서버 부하 분산)</li>
-                <li><strong>[필수]</strong> 1회 최대 2GB(블랙박스 등) 대용량 파일 처리</li>
-                <li><strong>[필수]</strong> UUID v4 기반 파일명 난수화 (Key Collision 방어)</li>
+                <li><strong>[필수]</strong> ①Presigned URL 발급 요청 → ②브라우저→S3 직접 Multipart 전송 → ③반환 Key를 attachments 배열 매핑 → ④POST /api/orders</li>
+                <li><strong>[필수]</strong> 1회 최대 2GB(개별 1GB) 대용량 처리, WAS 메모리 과부하 차단</li>
+                <li><strong>[필수]</strong> UUID 강제 주입 파일명(Key Collision 방어), 관리자 파일 sync/download-url/Hard Delete(S3 SDK 원본 파기)</li>
               </ul>
-              <h3>3.4 관리자 대시보드 & 인증</h3>
+              <h3>3.4 마스터 대시보드 & 인증</h3>
               <ul>
-                <li><strong>[필수]</strong> 마스터 대시보드 통계·제어 API</li>
-                <li><strong>[필수]</strong> 인증(Auth) 및 권한 분리 로직</li>
-                <li><strong>[필수]</strong> 50MB 페이로드 과부하 방지를 위한 경량 트리 메타데이터 응답 설계</li>
+                <li><strong>[필수]</strong> 하드코딩 폐기 → POST /api/admin/login·PUT /api/admin/password 인증</li>
+                <li><strong>[필수]</strong> GET /api/admin/orders — 연-월-일 3단 트리 렌더링용 목록 Array, 기간 필터(전체/일·주·월·연간)</li>
+                <li><strong>[필수]</strong> 상태 CRUD(forceStatusChange/restoreOrder/hardDeleteOrder DELETE), 스마트 에디터 draft(GET·PUT /api/orders/{uuid}/draft), 단가표 PUT /api/pricing/bulk(전체 트리 Replace)</li>
+                <li><strong>[필수]</strong> CMS(marquee/review/case, timestamp 키), Config/Popup 저장, SMS 장부 soft/restore/hardDelete</li>
               </ul>
-              <h3>3.5 외부 연동</h3>
+              <h3>3.5 외부 연동 (알림톡/SMS)</h3>
               <ul>
-                <li><strong>[필수]</strong> 비즈뿌리오 등 외부 API 기반 알림톡/SMS 자동 발송 트리거</li>
+                <li><strong>[필수]</strong> 비즈뿌리오/알리고 알림톡 API 서버단 연동, 템플릿 변수({이름}{금액}{일정}) 치환</li>
+                <li><strong>[필수]</strong> 트리거: 신규 제출·상태 변경(1~5단계)·수임료/결제 안내 시 자동 발송</li>
+                <li><strong>[필수]</strong> 알림톡 실패(미가입·장애) 시 LMS/SMS 우회 발송(Fallback)</li>
               </ul>
-              <h3>3.6 보안 (3대 코어 로직)</h3>
+              <h3>3.6 보안 (7대 방어 로직 — RFP §8 4대 + §9 3대)</h3>
               <ul>
-                <li><strong>[필수]</strong> UUID v4 기반 브루트포스/추측 방어</li>
-                <li><strong>[필수]</strong> 웹쉘 업로드 차단 (확장자/MIME/매직넘버 검증)</li>
-                <li><strong>[필수]</strong> 페이로드 과부하 방지 (요청 크기 제한 + Rate Limiting)</li>
+                <li><strong>[§8]</strong> ①S3 Key Collision 방어(UUID/timestamp 강제) ②알림톡/SMS 과금폭탄 방어(IP·번호 일일 제한·reCaptcha) ③DB 동시성 Transaction Lock(Bulk Update 중 Dirty Read 방어) ④S3 고아파일 Cron GC 배치</li>
+                <li><strong>[§9]</strong> ⑤UUID v4 브루트포스 타파(JR-YYMMDD-XXXX 대입 공격 차단) ⑥WebShell 차단(MIME 강제 검증·Content-Disposition) ⑦50MB 페이로드 과부하 방지(경량 메타데이터 + Lazy Load)</li>
+                <li><strong>[§10]</strong> HTTPS(SSL) 전구간, SQL Injection 방어, CORS 화이트리스트, Rate Limiting</li>
               </ul>
 
               <h2>4. 비기능 요구사항</h2>
@@ -478,11 +491,12 @@
                   <tr><th>항목</th><th>요구사항</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>호환성</td><td>기존 Vanilla JS fetch() 통신 규약과 완전 호환 (프레임워크 전환 불가)</td></tr>
-                  <tr><td>성능</td><td>대용량 파일은 서버 미경유(다이렉트 업로드), 대시보드 응답은 경량 메타데이터로 과부하 방지</td></tr>
-                  <tr><td>보안</td><td>HTTPS, 인증/인가, 업로드 검증, Rate Limiting, 난수화 키</td></tr>
-                  <tr><td>이식성</td><td>Docker 기반 배포, AWS EC2/RDS/S3 환경 재현 가능</td></tr>
-                  <tr><td>문서화</td><td>Swagger/Postman API 명세, ERD, 배포 가이드 제공</td></tr>
+                  <tr><td><strong>무결성(최우선)</strong></td><td><strong>프론트엔드 파손 제로</strong> — 3단계 마법사 트랜지션, 아코디언, 노무 계산기 등 기존 UI/UX에 깨짐·콘솔 에러 0건 (본 과업 최우선 평가지표)</td></tr>
+                  <tr><td>호환성</td><td>기존 Vanilla JS fetch() 통신 규약과 완전 호환, Base64 우회 순수 JSON 송수신 (프레임워크 전환 불가)</td></tr>
+                  <tr><td>성능</td><td>대용량 파일 서버 미경유(다이렉트 업로드), 대시보드 경량 메타데이터 + Lazy Load로 50MB 과부하 방지</td></tr>
+                  <tr><td>동시성</td><td>단가표 Bulk Update 중 폼 제출 Dirty Read 방어 — Transaction Lock/낙관적 동시성 제어</td></tr>
+                  <tr><td>보안</td><td>HTTPS, 인증/인가, MIME 검증, Rate Limiting(reCaptcha), UUID v4 난수화 키, SQL Injection·CORS 방어</td></tr>
+                  <tr><td>이식성/문서화</td><td>Docker 기반 AWS EC2/RDS/S3 배포, Swagger/Postman API 명세·정밀 ERD·GitHub 권한 이관</td></tr>
                 </tbody>
               </table>
 
@@ -543,18 +557,18 @@
                 <p class="text-sm font-semibold tracking-[0.14em] text-sky-700">PHASE 2</p>
                 <h4 class="text-base font-semibold text-slate-900">핵심 REST API 개발</h4>
                 <p class="mb-1 text-xs font-semibold text-amber-600">Day 7–18</p>
-                <p class="text-sm leading-7 text-slate-600">주문/단가/설정 CRUD 및 비즈니스 로직 API 개발, 기존 Vanilla JS fetch()와 1:1 바인딩, 응답 스키마 정합성 검증</p>
+                <p class="text-sm leading-7 text-slate-600">공개 조회 API(config/popup/pricing/marquee/reviews/cases), POST /api/orders(kakao-modal·shakeError 보존), 현황 트래커(마스킹·블라인드), storage 이벤트 대체 SSE/폴링 라이브 동기화</p>
                 <ul class="mt-2 list-disc pl-5 text-sm text-slate-500">
-                  <li>산출물: REST API 서버, 화면별 연동 검증 결과</li>
+                  <li>산출물: 핵심 REST API 서버, 화면별 파손 제로 연동 검증 결과</li>
                 </ul>
               </div>
               <div class="timeline-item">
                 <p class="text-sm font-semibold tracking-[0.14em] text-sky-700">PHASE 3</p>
                 <h4 class="text-base font-semibold text-slate-900">S3 · 관리자 · 연동 · 보안</h4>
                 <p class="mb-1 text-xs font-semibold text-amber-600">Day 19–26</p>
-                <p class="text-sm leading-7 text-slate-600">S3 Presigned URL 다이렉트 업로드(UUID v4 난수화), 관리자 대시보드 통계·제어 API + 인증, 비즈뿌리오 알림톡/SMS 연동, 3대 코어 보안 로직</p>
+                <p class="text-sm leading-7 text-slate-600">S3 4단계 업로드+파일관리·Cron GC, 관리자 인증·트리/필터·CRUD·draft 에디터·단가표 Bulk·CMS·SMS 장부, 비즈뿌리오 알림톡/SMS(치환·Fallback), 7대 방어 로직</p>
                 <ul class="mt-2 list-disc pl-5 text-sm text-slate-500">
-                  <li>산출물: 업로드 아키텍처, 관리자 API, 알림 트리거, 보안 모듈</li>
+                  <li>산출물: 업로드 아키텍처, 관리자 API 전체, 알림 트리거, 7대 보안 모듈</li>
                 </ul>
               </div>
               <div class="timeline-item">
@@ -579,7 +593,7 @@
                 <tbody>
                   <tr><td>M1: 설계 확정</td><td>Day 6</td><td>API 매핑 명세 + ERD 승인</td></tr>
                   <tr><td>M2: 핵심 API 동작</td><td>Day 18</td><td>기존 화면이 API 연동으로 정상 동작</td></tr>
-                  <tr><td>M3: 업로드·보안 완료</td><td>Day 26</td><td>2GB 업로드 + 3대 보안 검증 통과</td></tr>
+                  <tr><td>M3: 업로드·보안 완료</td><td>Day 26</td><td>2GB 업로드 + 7대 방어 로직 검증 통과</td></tr>
                   <tr><td>M4: 최종 납품</td><td>Day 30</td><td>소스·ERD·API 명세·배포 완료</td></tr>
                 </tbody>
               </table>
@@ -641,7 +655,7 @@
                   <li>토큰 기반 인증 및 권한(RBAC) 체계</li>
                 </ul>
                 <h4>본 프로젝트와의 유사점</h4>
-                <p>본 과업의 핵심 3요소가 그대로 일치합니다 — <strong>① Presigned URL 업로드, ② 브루트포스 방어·Rate Limiting(페이로드 과부하 방지), ③ 비즈뿌리오 SMS 연동</strong>. 관리자 대시보드 API + 인증 구조도 동일 패턴으로 구현 경험이 있어 리스크가 낮습니다.</p>
+                <p>본 과업의 핵심이 거의 그대로 일치합니다 — <strong>① Presigned URL 업로드, ② 브루트포스 방어·Rate Limiting(페이로드 과부하 방지), ③ 비즈뿌리오 SMS 연동</strong>. 더불어 토큰 기반 인증, 리치 에디터 문서 저장(draft 동기화), 관리자 CRUD·승인 워크플로우, 복잡 JSON 일괄 저장 등 본 RFP의 스마트 에디터·단가표 Bulk·CMS 요구와 동일 패턴을 구현해, 25+ 엔드포인트 전체에 검증된 경험을 적용할 수 있습니다.</p>
                 <h4>기술 스택</h4>
                 <div class="flex flex-wrap gap-1.5 not-prose">
                   <span class="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-sm text-slate-500">NestJS 10</span>
@@ -670,7 +684,7 @@
                   <li>DB 마이그레이션 179개 — 대규모 스키마 안정 운영</li>
                 </ul>
                 <h4>본 프로젝트와의 유사점</h4>
-                <p>대규모 REST API 설계와 <strong>AWS 클라우드 인프라(EC2/RDS/S3) 운영</strong>, 금융 수준의 다계층 보안, 비즈뿌리오 SMS 연동 경험이 본 과업의 인프라·보안·알림 요구사항과 직접 맞닿습니다.</p>
+                <p>대규모 REST API 설계와 <strong>AWS 클라우드 인프라(EC2/RDS/S3) 운영</strong>, 금융 수준의 다계층 보안, 비즈뿌리오 SMS 연동, 179개 DB 마이그레이션과 트랜잭션 안정 운영 경험이 본 과업의 인프라·보안·알림·DB 동시성(Transaction Lock) 요구와 직접 맞닿습니다.</p>
                 <h4>기술 스택</h4>
                 <div class="flex flex-wrap gap-1.5 not-prose">
                   <span class="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-sm text-slate-500">NestJS 10</span>
@@ -698,7 +712,7 @@
                   <li>가상계좌·KYC 등 15+ 외부 프로바이더 연동</li>
                 </ul>
                 <h4>본 프로젝트와의 유사점</h4>
-                <p>본 과업의 <strong>S3 파일 처리 + 외부 API 알림 자동 발송(트리거) + 관리자 대시보드 통계 API</strong>가 그대로 일치합니다. 외부 연동 다수 운영 경험으로 비즈뿌리오 연동 리스크가 낮습니다. (Django/Python 백엔드 사례로, 클라이언트 환경에 맞춘 스택 유연성도 입증)</p>
+                <p>본 과업의 <strong>S3 파일 처리 + 외부 API 알림 자동 발송(트리거) + 관리자 대시보드 통계 API + 운영 자동화 크론 배치(고아 파일 GC와 동형)</strong>가 그대로 일치합니다. SMS 발송 큐·이력 장부 운영 경험으로 비즈뿌리오 연동·Fallback 리스크가 낮으며, Django/Python 사례로 클라이언트 환경에 맞춘 스택 유연성도 입증합니다.</p>
                 <h4>기술 스택</h4>
                 <div class="flex flex-wrap gap-1.5 not-prose">
                   <span class="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-sm text-slate-500">Python · Django</span>
