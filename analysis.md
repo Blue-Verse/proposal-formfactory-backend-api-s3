@@ -68,3 +68,44 @@ job:
   4. 비즈뿌리오(Ppurio) 동일 제공사 연동 경험으로 리스크 최소화
   5. 산출물 완성도(1순위) 집중 — ERD·Swagger/Postman·배포 가이드 완비
 - **기술 스택**: Node.js(NestJS) 우선, Spring Boot/Django 협의 가능 · MySQL · AWS(EC2/RDS/S3)
+
+## 6. 최종 산출물 (8단계 출력 전문)
+
+### 6.1 제안서 사이트 URL
+https://proposal-router.claude-ai-b27.workers.dev/proposal-formfactory-backend-api-s3/
+
+### 6.2 지원 금액
+4,250,000원 (VAT 별도) — 클라이언트 예상 5,000,000원의 85%
+
+### 6.3 지원 기간
+30일
+
+### 6.4 클라이언트 사전 검증 질문 답변
+
+**Q1. 과업지시서 확인 + Vanilla JS FE 로직 100% 보존하며 fetch() REST API 바인딩 경험?**
+네, 과업지시서의 DB 스키마, API 매핑 명세, S3 연동 방식, 코어 보안 로직을 모두 확인했습니다. 기존 화면 단 로직(UI/UX)을 일절 수정하지 않고, 프론트엔드의 fetch() 호출 지점에 1:1로 대응하는 REST API를 설계·연동한 경험이 있습니다. 전자결재 SaaS 등에서 완성된 클라이언트 코드의 통신 규약에 백엔드를 정확히 맞추는 작업을 다수 수행했으며, React/Vue 등 프레임워크 전환 없이 제공된 Vanilla JS 소스를 그대로 보존하는 방식으로 진행합니다.
+
+**Q2. S3 Presigned URL 다이렉트 업로드 + UUID v4 파일명 난수화 구현 가능?**
+네, 가능합니다. 서버를 경유하지 않고 클라이언트가 S3로 직접 업로드하는 Presigned URL 다이렉트 업로드 아키텍처를 운영 수준으로 구현한 경험이 있습니다. 1회 최대 2GB 대용량 파일은 멀티파트 업로드로 안정 처리하며, 업로드 객체 키는 UUID v4로 난수화하여 Key Collision과 추측 접근을 방어합니다. 발급되는 Presigned URL에는 짧은 만료 시간과 콘텐츠 타입/크기 제약을 적용해 오남용을 차단합니다.
+
+**Q3. 관리자 대시보드 50MB 페이로드 과부하 방지를 위한 경량 트리 메타데이터 구현?**
+네, 가능합니다. 관리자 대시보드 응답은 본문/텍스트 등 무거운 필드를 제외하고, 트리 구조와 식별자·요약 정보만 담은 경량 메타데이터로 우선 전달하도록 설계합니다. 상세 본문은 노드 선택 시 별도 API로 지연 로딩하여 초기 페이로드를 최소화하고, 요청 크기 제한과 페이지네이션을 함께 적용해 50MB 과부하 크래시를 방지합니다.
+
+### 6.5 지원 내용 (전체 텍스트)
+
+안녕하세요, 비대면 스마트 서면 설계 웹 시스템 백엔드(API/DB) 및 클라우드(S3) 구축 프로젝트에 지원합니다.
+
+본 프로젝트에 대한 상세 제안서(견적서, 공수계산서, PRD, 일정, 포트폴리오)를 별도 페이지로 준비하였습니다.
+▶ 제안서 상세 페이지: https://proposal-router.claude-ai-b27.workers.dev/proposal-formfactory-backend-api-s3/
+▶ 위시켓 포트폴리오: https://www.wishket.com/partners/p/blueverse1/
+
+[프로젝트 분석] 순수 백엔드(API·DB·클라우드) 구축. Vanilla JS FE 100% 보존 + LocalStorage→REST API 1:1 대체. FE 공수 0원, PG 제외(무통장 유지).
+[핵심 과업] RDBMS 스키마·ERD / REST API 서버 / S3 Presigned URL 업로드(2GB)+UUID v4 / 관리자 대시보드 API+인증 / 비즈뿌리오 알림톡·SMS / 3대 보안 로직.
+[일정 30일] P1 분석·DB설계(D1-6) / P2 핵심 API(D7-18) / P3 S3·관리자·연동·보안(D19-26) / P4 통합 QA·배포(D27-30).
+[산출물] 백엔드 소스 일체, ERD, REST API 명세서(Swagger/Postman), 배포 가이드.
+[협의] 프레임워크 확정(Node.js/NestJS 우선, Spring Boot/Django 협의), AWS·비즈뿌리오 정보 공유, 월 단위 유지보수 범위.
+
+### 6.6 관련 포트폴리오 추천
+1. 전자결재·업무관리 SaaS (EZ-Approve) — Presigned URL + 브루트포스/Rate Limiting + 비즈뿌리오 SMS 거의 1:1 일치
+2. VC 투자조합 관리 플랫폼 (Series-B) — 대규모 REST API + AWS 인프라 + 다계층 보안 + SMS 연동
+3. P2P 크라우드펀딩 플랫폼 (P2P-Funding) — AWS S3 + 외부 API 알림 자동 발송 + 관리자 대시보드 API
